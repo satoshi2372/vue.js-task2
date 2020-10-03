@@ -24,5 +24,9 @@ export default new Router({
       name: "step3",
       component: Step3,
     },
+    {
+      path: "*", //上記に指定した以外の全てのurlはリダイレクトする指定
+      redirect: "/step1", //リダイレクト先を指定
+    },
   ],
 });
