@@ -110,7 +110,6 @@ export default {
   methods: {
     ...mapMutations(['updateYear', 'updateMonth', 'updateDay']),
     selectedYear(e) {
-      console.log(e.target.value);
       this.updateYear(e.target.value);
     },
     selectedMonth(e) {

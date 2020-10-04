@@ -107,16 +107,15 @@ export default {
       show2: false,
     };
   },
-  watch: {
-    $route(to, from) {
-      if (to.path !== from.path) {
-        if (this.$store.state.hospital !== '') {
-          this.data.show = true;
-          this.data.show2 = true;
-          console.log('どうなってんの？');
-        }
+  beforeRouteEnter(to, form, next) {
+    next((vm) => {
+      if (vm.$store.state.health !== '') {
+        vm.show = true;
       }
-    },
+      if (vm.$store.state.hospital !== '') {
+        vm.show2 = true;
+      }
+    });
   },
   computed: {
     insurance: {
