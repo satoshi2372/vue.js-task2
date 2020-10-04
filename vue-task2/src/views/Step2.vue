@@ -51,6 +51,7 @@
               type="radio"
               id="q2-no"
               name="q2"
+              @click="show2 = true"
               v-model="health"
               value="いいえ"
             />
@@ -105,6 +106,17 @@ export default {
       show: false,
       show2: false,
     };
+  },
+  watch: {
+    $route(to, from) {
+      if (to.path !== from.path) {
+        if (this.$store.state.hospital !== '') {
+          this.data.show = true;
+          this.data.show2 = true;
+          console.log('どうなってんの？');
+        }
+      }
+    },
   },
   computed: {
     insurance: {
