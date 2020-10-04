@@ -2,23 +2,29 @@
   <div>
     <div id="info">
       <div id="header">
-        <p id="header-step">STEP3</p>
+        <p id="header-step">STEP4</p>
         <h2 id="header-title">
-          <span id="fa-card"
-            ><font-awesome-icon icon="chalkboard-teacher"
-          /></span>
-          ご相談内容をご記入ください
+          <span id="fa-card"><font-awesome-icon icon="file-alt"/></span>
+          以下の内容をご確認ください
         </h2>
       </div>
       <div id="form">
+        <p class="form-title">-性別-</p>
+        <p>{{ gender }}</p>
+        <p class="form-title">-生年月日-</p>
+        <p>{{ year }}年{{ month }}月{{ day }}日</p>
+        <p class="form-title">-現在、生命保険に加入されていますか？-</p>
+        <p>{{ insurance }}</p>
+        <p class="form-title">
+          -現在入院中ですか。または、最近３ヶ月以内に医師の診察・検査の結果、入院・手術をすすめられたことはありますか？-
+        </p>
+        <p>{{ health }}</p>
+        <p class="form-title">
+          -過去５年以内に、病気やけがで、手術をうけたことまたは継続して７日以上の入院をしたことがありますか？-
+        </p>
+        <p>{{ hospital }}</p>
         <p class="form-title">-ご相談内容-</p>
-        <textarea
-          id="form-text_area"
-          :value="message"
-          @input="updateMessage"
-          cols="30"
-          rows="10"
-        ></textarea>
+        <p>{{ message }}</p>
       </div>
     </div>
     <div id="btn-box">
@@ -27,31 +33,31 @@
           ><font-awesome-icon icon="angle-right"
         /></span>
       </button>
-      <button class="next-btn" @click="nextStep">
-        次へ進む<span id="fa-angle"
-          ><font-awesome-icon icon="angle-right"
-        /></span>
+      <button class="next-btn">
+        送信<span id="fa-angle"><font-awesome-icon icon="angle-right"/></span>
       </button>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   computed: {
-    message() {
-      return this.$store.state.message;
-    },
+    ...mapState([
+      'gender',
+      'year',
+      'month',
+      'day',
+      'insurance',
+      'health',
+      'hospital',
+      'message',
+    ]),
   },
   methods: {
-    updateMessage(e) {
-      this.$store.commit('updateMessage', e.target.value);
-    },
-    nextStep() {
-      this.$router.push('/step4');
-    },
     returnStep() {
-      this.$router.push('/step2');
+      this.$router.push('/step3');
     },
   },
 };
@@ -104,10 +110,6 @@ export default {
   font-weight: normal;
   color: rgb(79, 132, 171);
 }
-#form-text_area {
-  width: 100%;
-}
-
 /* footer-btn */
 #btn-box {
   width: 60%;

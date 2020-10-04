@@ -18,7 +18,8 @@
             id="q1-yes"
             name="q1"
             @click="show = true"
-            @change="updateInsurance('はい')"
+            v-model="insurance"
+            value="はい"
           />
           <label for="q1-yes">はい</label>
           <input
@@ -26,7 +27,8 @@
             id="q1-no"
             name="q1"
             @click="show = true"
-            @change="updateInsurance('いいえ')"
+            v-model="insurance"
+            value="はい"
           />
           <label for="q1-no">いいえ</label>
         </div>
@@ -41,15 +43,16 @@
               id="q2-yes"
               name="q2"
               @click="show2 = true"
-              @change="updateHealth('はい')"
+              v-model="health"
+              value="はい"
             />
             <label for="q2-yes">はい</label>
             <input
               type="radio"
               id="q2-no"
               name="q2"
-              @click="show2 = true"
-              @change="updateHealth('いいえ')"
+              v-model="health"
+              value="いいえ"
             />
             <label for="q2-no">いいえ</label>
           </div>
@@ -64,16 +67,16 @@
               type="radio"
               id="q3-yes"
               name="q3"
+              v-model="hospital"
               value="はい"
-              @change="updateHospital('はい')"
             />
             <label for="q3-yes">はい</label>
             <input
               type="radio"
               id="q3-no"
               name="q3"
-              value="いいえ"
-              @change="updateHospital('いいえ')"
+              v-model="hospital"
+              value="はい"
             />
             <label for="q3-no">いいえ</label>
           </div>
@@ -96,8 +99,6 @@
 </template>
 
 <script>
-//mapのimport
-import { mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -105,14 +106,38 @@ export default {
       show2: false,
     };
   },
+  computed: {
+    insurance: {
+      get() {
+        return this.$store.state.insurance;
+      },
+      set(value) {
+        this.$store.commit('updateInsurance', value);
+      },
+    },
+    health: {
+      get() {
+        return this.$store.state.health;
+      },
+      set(value) {
+        this.$store.commit('updateHealth', value);
+      },
+    },
+    hospital: {
+      get() {
+        return this.$store.state.hospital;
+      },
+      set(value) {
+        this.$store.commit('updateHospital', value);
+      },
+    },
+  },
   methods: {
-    //mapを使いcommitする時はmapをimportする引数はtemplateで指定
-    ...mapMutations(["updateInsurance", "updateHealth", "updateHospital"]),
     nextStep() {
-      this.$router.push("/step3");
+      this.$router.push('/step3');
     },
     returnStep() {
-      this.$router.push("/step1");
+      this.$router.push('/');
     },
   },
 };

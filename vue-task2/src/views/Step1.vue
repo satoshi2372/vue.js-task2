@@ -8,6 +8,7 @@
           お客様の情報を入力してください
         </h2>
       </div>
+
       <div id="form">
         <div id="gender-box">
           <h3 class="form-title">-性別-</h3>
@@ -15,14 +16,16 @@
             type="radio"
             id="gender-man"
             name="gender"
-            @change="updateGender('男')"
+            v-model="gender"
+            value="男性"
           />
           <label for="gender-man" class="gender-label">男</label>
           <input
             type="radio"
             id="gender-woman"
             name="gender"
-            @change="updateGender('女')"
+            v-model="gender"
+            value="女性"
           />
           <label for="gender-woman" class="gender-label">女</label>
         </div>
@@ -30,9 +33,9 @@
         <div id="birth-box">
           <h3 class="form-title">-生年月日-</h3>
           <select id="year" :value="year" @change="selectedYear">
-            <option v-for="n in 100" :value="n + 1920" :key="n">{{
-              (n + 1920) | nengo
-            }}</option>
+            <option v-for="n in 100" :value="n + 1920" :key="n">
+              {{ (n + 1920) | japaneseCalendar }}
+            </option>
           </select>
           <label>年</label>
 
@@ -41,7 +44,8 @@
           </select>
           <label for="month">月</label>
 
-          <select id="day" :value="day" @change="selectedDay">
+          <select id="day" :value="day" @change="selectedDay" pla>
+            <option disabled selected style="display: none">{{ day }}</option>
             <option v-for="n in daysMax" :key="n" :value="n">{{ n }}</option>
           </select>
           <label for="day">日</label>
@@ -59,16 +63,18 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations } from 'vuex';
 export default {
   data() {
     return {
+      radioMan: '',
+      radioWoman: '',
       nengoes: [],
-      daysMax: "",
+      daysMax: '',
     };
   },
   filters: {
-    nengo(y) {
+    japaneseCalendar(y) {
       let result;
       if (y > 2018) {
         result = `${y} (令和${y - 2018}年)`;
@@ -83,6 +89,14 @@ export default {
     },
   },
   computed: {
+    gender: {
+      get() {
+        return this.$store.state.gender;
+      },
+      set(value) {
+        this.$store.commit('updateGender', value);
+      },
+    },
     year() {
       return this.$store.state.year;
     },
@@ -94,7 +108,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["updateGender", "updateYear", "updateMonth", "updateDay"]),
+    ...mapMutations(['updateYear', 'updateMonth', 'updateDay']),
     selectedYear(e) {
       console.log(e.target.value);
       this.updateYear(e.target.value);
@@ -112,7 +126,7 @@ export default {
       this.updateDay(e.target.value);
     },
     nextStep() {
-      this.$router.push("/step2");
+      this.$router.push('/step2');
     },
   },
 };
@@ -206,7 +220,7 @@ export default {
 }
 #month,
 #day {
-  width: 50px;
+  width: 55px;
 }
 /* footer-btn */
 #btn-box {

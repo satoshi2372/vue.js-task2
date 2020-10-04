@@ -1,6 +1,6 @@
 //stor.jsにimport
-import Vue from "vue";
-import Vuex from "vuex";
+import Vue from 'vue';
+import Vuex from 'vuex';
 //プラグイン追加
 Vue.use(Vuex);
 
@@ -8,16 +8,16 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     //step1
-    gender: "",
-    year: "",
-    month: "",
-    day: "",
+    gender: '',
+    year: '',
+    month: '',
+    day: '',
     //step2
-    insurance: "",
-    health: "",
-    hospital: "",
+    insurance: '',
+    health: '',
+    hospital: '',
     //step3
-    message: "",
+    message: '',
   },
   mutations: {
     //step1
