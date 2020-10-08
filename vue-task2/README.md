@@ -1,4 +1,4 @@
-# vue-task1
+# vuex-project
 
 ## Project setup
 ```
