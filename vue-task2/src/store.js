@@ -1,4 +1,4 @@
-//stor.jsにimport
+//stor.jsにimport //確認
 import Vue from 'vue';
 import Vuex from 'vuex';
 //プラグイン追加
